@@ -1,3 +1,7 @@
+/* @Author - Sushen Kumar Manchukanti
+ * Title   - Deck system Card
+ * Purpose - CustomInk Assignment 
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -8,7 +12,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+//unit test for the Card class. Testing all the functions contained within it. 
 public class CardTest {
 
 	@BeforeClass

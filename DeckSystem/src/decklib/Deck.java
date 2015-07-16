@@ -1,23 +1,36 @@
+/* @Author - Sushen Kumar Manchukanti
+ * Title   - Deck system Card
+ * Purpose - CustomInk Assignment 
+ */
 package decklib;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+/*	Deck class whose object is the deck system.
+ * 	I have used an ArrasyList to store the deck cards
+ * 	As it is dynamic and also gives access to all the cards
+ * 	instead of a stack/queue/hash 
+ */
 public class Deck 
 {
-	private final String suits[] ={"spade","heart","diamond","club"}; 
-	private int faces[] =new int[4]; 							//j,q,k,A 
-	private sets set;
+	private final String suits[] ={"spade","heart","diamond","club"};	//suits don't change 
+	private int faces[] =new int[4]; 							 		//4 cards King,Queen,Jack and Ace I'm letting the user set the score for these
+	private sets set;													//set singleton object
 	
+	/*	Deck constructor takes 4 values the score of each of the face cards
+	 * 	set by the user
+	 */
 	public Deck(int king,int queen, int jack, int ace)
 	{
-		faces[0]=king;
-		faces[1]=queen;
-		faces[2]=jack;
-		faces[3]=ace;
+		faces[0]=king;								//assigning the values
+		faces[1]=queen;								//
+		faces[2]=jack;								//
+		faces[3]=ace;								//
 		
-		set = Helper.getInstance();
+		set = Helper.getInstance();					//getting the singleton instance
 		
+		//Creating card objects and building the card set 
 		for(int i=0;i<suits.length;i++)
 		{
 			for(int j=2;j<11;j++)
@@ -33,7 +46,7 @@ public class Deck
 		}
 	}
 	
-	//Fisher–Yates shuffle
+	//Shuffling the cards using a shuffling algorithm (Fisher-Yates) using random function
 	public void shuffle()
 	{
 		try
@@ -50,14 +63,22 @@ public class Deck
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	
+	//function that returns the remaining cards
 	public int remainingCards()
 	{
 		return set.deckSet.size();
 	}
 	
+	/*function that distributes the cards to all players
+	 * the same way it is done in real life
+	 * one card each person in a round robin fashion
+	 * if the players list is null or if there are no players,
+	 * the function returns false	 
+	 */
 	public Boolean distribute(ArrayList<Player> players)
 	{
 		if(players!=null && players.size()>0)
@@ -79,6 +100,7 @@ public class Deck
 		}
 	 }
 	
+	//Function that gives the first card in the deck to a player
 	public void dealACardToPlayer(Player player)
 	{
 		try
@@ -92,6 +114,7 @@ public class Deck
 		}
 	}
 	
+	//function that displays all the cards in the deck
 	public void displayDeckCards()
 	{
 		for(int i=0;i<set.deckSet.size();i++)
@@ -100,6 +123,7 @@ public class Deck
 		}
 	}
 	
+	//function that clears the deck. May be useful when the game ends?
 	public void clear()
 	{
 		set.deckSet.clear();
@@ -119,11 +143,10 @@ public class Deck
 		playerList.add(player2);
 		deck.distribute(playerList);
 		System.out.println("player1 remaining cards "+player1.remainingCards());
-		//player1.returnACard(0);
+		player1.returnACard(0);
 		System.out.println("deck remaining cards "+deck.remainingCards());
 		player2.displayPlayerCards();
 		System.out.println(player2.score());
-		System.out.println("\n\n");
 		deck.displayDeckCards();
 	}
 }

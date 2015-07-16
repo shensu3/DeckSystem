@@ -1,3 +1,7 @@
+/* @Author - Sushen Kumar Manchukanti
+ * Title   - Deck system Card
+ * Purpose - CustomInk Assignment 
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -12,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+//Testing the functions in the Deck class
 public class DeckTest {
 	public Deck deck;
 	@BeforeClass
@@ -52,9 +57,9 @@ public class DeckTest {
 		assertEquals(player1.remainingCards(),26);
 		assertEquals(player2.remainingCards(),26);
 		deck.clear();
-		deck.distribute(players);
 		player1.clear();
 		player2.clear();
+		deck.distribute(players);
 		assertEquals(player1.remainingCards(),0);
 		assertEquals(player2.remainingCards(),0);
 	}

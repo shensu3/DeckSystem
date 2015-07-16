@@ -1,7 +1,12 @@
+/* @Author - Sushen Kumar Manchukanti
+ * Title   - Deck system Card
+ * Purpose - CustomInk Assignment 
+ */
 package decklib;
 
 import java.util.ArrayList;
 
+//sets class 
 public class sets
 {
 	public ArrayList<Card> deckSet;

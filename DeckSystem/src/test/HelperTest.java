@@ -1,3 +1,7 @@
+/* @Author - Sushen Kumar Manchukanti
+ * Title   - Deck system Card
+ * Purpose - CustomInk Assignment 
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -11,6 +15,7 @@ import org.junit.Test;
 
 import decklib.Helper;
 
+//Testing all the methods in the Helper class
 public class HelperTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
