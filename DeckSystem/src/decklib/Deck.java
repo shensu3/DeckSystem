@@ -6,32 +6,50 @@ import java.util.Random;
 public class Deck 
 {
 	private final String suits[] ={"spade","heart","diamond","club"}; 
-	private final int faces[] ={11,12,13,14}; 							//j,q,k,A 
+	private int faces[] =new int[4]; 							//j,q,k,A 
 	private sets set;
 	
-	public void init()
+	public Deck(int king,int queen, int jack, int ace)
 	{
+		faces[0]=king;
+		faces[1]=queen;
+		faces[2]=jack;
+		faces[3]=ace;
+		
 		set = Helper.getInstance();
+		
 		for(int i=0;i<suits.length;i++)
 		{
-			for(int j=2;j<15;j++)
+			for(int j=2;j<11;j++)
 			{
 				Card card = new Card(suits[i],j);
+				set.deckSet.add(card);
+			}
+			for(int j=0;j<faces.length;j++)
+			{
+				Card card = new Card(suits[i],faces[j]);
 				set.deckSet.add(card);
 			}
 		}
 	}
 	
 	//Fisher–Yates shuffle
-	public void shuffle() throws Exception
+	public void shuffle()
 	{
-		for(int i = set.deckSet.size()-1;i>=1;i--)
+		try
 		{
-			Card temp = set.deckSet.get(i);
-			Random rand = new Random();
-			int j = rand.nextInt(i);
-			set.deckSet.set(i,set.deckSet.get(j));
-			set.deckSet.set(j,temp);
+			for(int i = set.deckSet.size()-1;i>=1;i--)
+			{
+				Card temp = set.deckSet.get(i);
+				Random rand = new Random();
+				int j = rand.nextInt(i);
+				set.deckSet.set(i,set.deckSet.get(j));
+				set.deckSet.set(j,temp);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 	
@@ -40,44 +58,36 @@ public class Deck
 		return set.deckSet.size();
 	}
 	
-	public Boolean distribute(ArrayList<Player> players) throws Exception
+	public Boolean distribute(ArrayList<Player> players)
 	{
-		try
-		{
-			while(set.deckSet.size()>=1)
+		if(players!=null && players.size()>0)
 			{
-				for(int i=0;i<players.size();i++)
+				while(set.deckSet.size()>0)
 				{
-				if(set.deckSet.size()==0)
-					break;
-				players.get(i).add(set.deckSet.remove(0));
+					for(int i=0;i<players.size();i++)
+					{
+					if(set.deckSet.size()==0)
+						break;
+					players.get(i).add(set.deckSet.remove(0));
+					}
 				}
-			}
-			return true;
-		}
-		catch(Exception e)
-		{
-			for(int i=0;i<players.size();i++)
-				players.get(i).clear();
-			throw e;
-		}
-	}
-	
-	public Boolean dealACardToPlayer(Player player) throws Exception
-	{
-		try{
-		if(set.deckSet.size()>=1)
-			{
-			player.add(set.deckSet.remove(0));
 			return true;
 			}
 		else
-			{
+		{
 			return false;
-			}
+		}
+	 }
+	
+	public void dealACardToPlayer(Player player)
+	{
+		try
+		{
+			player.add(set.deckSet.remove(0));
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -90,20 +100,26 @@ public class Deck
 		}
 	}
 	
-	
-	public static void main(String args[]) throws Exception
+	public void clear()
 	{
-		Deck deck = new Deck();
-		deck.init();
+		set.deckSet.clear();
+	}
+	
+	
+	public static void main(String args[]) 
+	{
+		Deck deck = new Deck(11,12,13,14);
 		deck.shuffle();
 		Player player1 = new Player("Arun");
 		Player player2 = new Player("sushen");
 		deck.displayDeckCards();
 		System.out.println("deck remaining cards "+deck.remainingCards());
-		deck.dealACardToPlayer(player1);
-		deck.dealACardToPlayer(player2);
+		ArrayList<Player> playerList = new ArrayList<Player>();
+		playerList.add(player1);
+		playerList.add(player2);
+		deck.distribute(playerList);
 		System.out.println("player1 remaining cards "+player1.remainingCards());
-		player1.returnACard(0);
+		//player1.returnACard(0);
 		System.out.println("deck remaining cards "+deck.remainingCards());
 		player2.displayPlayerCards();
 		System.out.println(player2.score());
