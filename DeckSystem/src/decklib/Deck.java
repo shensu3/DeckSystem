@@ -129,24 +129,4 @@ public class Deck
 		set.deckSet.clear();
 	}
 	
-	
-	public static void main(String args[]) 
-	{
-		Deck deck = new Deck(11,12,13,14);
-		deck.shuffle();
-		Player player1 = new Player("Arun");
-		Player player2 = new Player("sushen");
-		deck.displayDeckCards();
-		System.out.println("deck remaining cards "+deck.remainingCards());
-		ArrayList<Player> playerList = new ArrayList<Player>();
-		playerList.add(player1);
-		playerList.add(player2);
-		deck.distribute(playerList);
-		System.out.println("player1 remaining cards "+player1.remainingCards());
-		player1.returnACard(0);
-		System.out.println("deck remaining cards "+deck.remainingCards());
-		player2.displayPlayerCards();
-		System.out.println(player2.score());
-		deck.displayDeckCards();
-	}
 }
